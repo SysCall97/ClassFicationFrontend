@@ -1,0 +1,10 @@
+.errorText{
+    color: red;
+    font-size: 12px;
+}
+.boxWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
