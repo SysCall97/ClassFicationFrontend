@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { isValidEmail, isValidPassword } from '../../helpers/validation';
-import { signin } from '../../services/auth';
 import { Link } from 'react-router-dom';
+
+import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import Box from '../common/Box';
 import Textfield from '../common/Textfield';
-import LinearProgress from '@mui/material/LinearProgress';
+import { signin } from '../../services/auth';
+import {useHandleAuth} from '../../helpers/useHandleAuth';
+import { isValidEmail, isValidPassword } from '../../helpers/validation';
 
 const Signin = () => {
     const [email, setEmail] = useState(null);
@@ -16,6 +19,7 @@ const Signin = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const handleAuth = useHandleAuth();
 
     const handleSetEmail = (e) => {
         const _email = e.target.value;
@@ -48,15 +52,10 @@ const Signin = () => {
     const handleLogIn = async () => {
         const payload = getPayload();
         if(!!payload) {
-            setLoading(true);
-            const data = await signin(payload);
-            setLoading(false);
-            console.log(data.data);
+            handleAuth(payload, signin, setLoading);
         }
     }
-    const _marginTop = {
-        marginTop: "15px"
-    };
+    const _marginTop = { marginTop: "15px" };
     return (
         <div className='boxWrapper'>
             <Box>

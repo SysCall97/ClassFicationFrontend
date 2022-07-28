@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/Header';
@@ -7,11 +7,18 @@ import Signup from './components/signup/Signup';
 
 export const context = createContext();
 function App() {
-  const [loggedInuser, setLoggedInuser] = useState({});
+  const [loggedInUser, setLoggedInUser] = useState({});
+
+  useEffect(() => {
+    const _user = localStorage.getItem("user");
+    if(!!_user) {
+      setLoggedInUser(JSON.parse(_user));
+    }
+  }, []);
 
   return (
     <context.Provider value={{
-      user: [loggedInuser, setLoggedInuser]
+      user: [loggedInUser, setLoggedInUser]
     }}>
       <div className="App">
         <BrowserRouter>

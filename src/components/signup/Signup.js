@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { isValidEmail, isValidPassword, isValidUsername } from '../../helpers/validation';
-import { signup } from '../../services/user';
+import Typography from '@mui/material/Typography';
+import InputLabel from '@mui/material/InputLabel';
+import CardContent from '@mui/material/CardContent';
+import FormControl from '@mui/material/FormControl';
+import LinearProgress from '@mui/material/LinearProgress';
+
 import Box from '../common/Box';
 import Textfield from '../common/Textfield';
-import LinearProgress from '@mui/material/LinearProgress';
+import { signup } from '../../services/user';
+import {useHandleAuth} from '../../helpers/useHandleAuth';
+import { isValidEmail, isValidPassword, isValidUsername } from '../../helpers/validation';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -28,10 +31,12 @@ const Signup = () => {
 
     const [role, setRole] = useState(1);
 
+    const handleAuth = useHandleAuth();
+
     const roles = {
         Teacher: 1,
         Student: 2,
-    }
+    };
 
     const handleChange = (e) => {
         setRole(e.target.value);
@@ -71,7 +76,7 @@ const Signup = () => {
         } else {
             setconfirmPasswordError(true);
         }
-    }
+    };
 
     const getPayload = () => {
         console.log({ name: username, email, role, password })
@@ -89,20 +94,15 @@ const Signup = () => {
             setRoleError(!Object.values(roles).includes(role));
             return null;
         }
-    }
+    };
 
     const handleSignUp = async () => {
         const payload = getPayload();
         if(!!payload) {
-            setLoading(true);
-            const data = await signup(payload);
-            setLoading(false);
-            console.log(data.data);
+            handleAuth(payload, signup, setLoading);
         }
-    }
-    const _marginTop = {
-        marginTop: "15px"
     };
+    const _marginTop = { marginTop: "15px" };
     return (
         <div className='boxWrapper'>
             <Box>
