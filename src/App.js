@@ -4,16 +4,26 @@ import './App.css';
 import Header from './components/header/Header';
 import Signin from './components/signin/Signin';
 import Signup from './components/signup/Signup';
+import { checkToken } from './services/auth';
 
 export const context = createContext();
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState({});
+  const [loggedInUser, setLoggedInUser] = useState({
+    isLoggedIn: false
+  });
 
   useEffect(() => {
-    const _user = localStorage.getItem("user");
-    if(!!_user) {
-      setLoggedInUser(JSON.parse(_user));
+    const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+
+    async function checkTokenAction() {
+      const _checkToken = await checkToken();
+      console.log(isLoggedIn);
+      if(_checkToken.status === 202) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        setLoggedInUser({...user, isLoggedIn: true});
+      }
     }
+    if(isLoggedIn) checkTokenAction();
   }, []);
 
   return (
