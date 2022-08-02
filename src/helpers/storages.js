@@ -16,7 +16,7 @@ export const setUserToStorage = ({token, message, ...user}) => {
 
 export const deleteAuthTokenFromStorage = () => {
     return new Promise((resolve) => {
-        localStorage.setItem("user", {});
+        localStorage.setItem("user", JSON.stringify({}));
         localStorage.removeItem("tid");
         localStorage.setItem("isLoggedIn", false);
         instance.defaults.headers["Authorization"] = `Bearer null`;
