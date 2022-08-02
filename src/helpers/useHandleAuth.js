@@ -9,10 +9,10 @@ export const useHandleAuth = () => {
     const handleAuth = async (payload, authFunc, loadingFunc) => {
         loadingFunc(true);
         const data = await authFunc(payload);
-        loadingFunc(false);
+        if(typeof(loadingFunc) === 'function') loadingFunc(false);
         const _user = data.data;
         await setUserToStorage(_user);
-        await setLoggedinUser(_user);
+        await setLoggedinUser({..._user, isLoggedIn: true});
     }
     return handleAuth;
 }
