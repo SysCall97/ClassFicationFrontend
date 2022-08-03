@@ -1,29 +1,11 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { useContext } from 'react';
-import { context } from "../../App";
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children, ...rest }) => {
-    const { user } = useContext(context);
-    const [loggedinUser, setLoggedinUser] = user;
-
-    return (
-        <Route
-            {...rest}
-            render={({ location }) =>
-            loggedinUser.isLoggedIn ? (
-                    children
-                ) : (
-                        <Redirect
-                            to={{
-                                pathname: "/signin",
-                                state: { from: location }
-                            }}
-                        />
-                    )
-            }
-        />
-    );
+const PrivateRoute = ({ isLoggedIn, children }) => {
+    if (!isLoggedIn) {
+        return <Navigate to="/signin" replace />;
+    }
+    return children;
 };
 
 export default PrivateRoute;
