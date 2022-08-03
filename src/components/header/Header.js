@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import './Header.css'
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+
+import './Header.css'
 import { context } from "../../App";
 import { signout } from '../../services/auth';
 import { deleteAuthTokenFromStorage } from '../../helpers/storages';
