@@ -19,7 +19,6 @@ function App() {
 
     async function checkTokenAction() {
       const _checkToken = await checkToken();
-      console.log(isLoggedIn);
       if(_checkToken.status === 202) {
         const user = JSON.parse(localStorage.getItem("user"));
         await setLoggedInUser({...user, isLoggedIn: true});
