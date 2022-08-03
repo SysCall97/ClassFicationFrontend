@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -23,7 +23,8 @@ const Signin = () => {
     const [password, setPassword] = useState(null);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-
+    
+    const navigate = useNavigate();
     const handleAuth = useHandleAuth();
     const _marginTop = { marginTop: "15px" };
 
@@ -66,6 +67,8 @@ const Signin = () => {
                 setTitle(status.title)
                 setContent(status.message);
                 setOpen(true);
+            } else {
+                navigate("../dashboard");
             }
         }
     };

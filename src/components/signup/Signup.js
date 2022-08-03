@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -33,8 +34,8 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState(null);
     const [confirmPasswordError, setconfirmPasswordError] = useState(false);
 
+    const navigate = useNavigate();
     const handleAuth = useHandleAuth();
-
     const roles = {
         Teacher: 1,
         Student: 2,
@@ -109,6 +110,8 @@ const Signup = () => {
                 setTitle(status.title)
                 setContent(status.message);
                 setOpen(true);
+            } else {
+                navigate("../dashboard");
             }
         }
     };
