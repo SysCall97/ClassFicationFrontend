@@ -42,7 +42,6 @@ const Signup = () => {
     const _marginTop = { marginTop: "15px" };
 
     const getPayload = () => {
-        console.log({ name: username, email, role, password })
         if(isValidEmail(email) && 
             isValidPassword(password) && 
             isValidUsername(username) && 
@@ -105,7 +104,7 @@ const Signup = () => {
     const handleSignUp = async () => {
         const payload = getPayload();
         if(!!payload) {
-            const status = handleAuth(payload, signup, setLoading);
+            const status = await handleAuth(payload, signup, setLoading);
             if(!status.isSuccess) {
                 setTitle(status.title)
                 setContent(status.message);
