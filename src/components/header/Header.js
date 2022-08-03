@@ -40,9 +40,16 @@ const Header = () => {
                     }
                     {
                         loggedinUser.isLoggedIn && 
+                        <>
+                            <Link to="dashboard">
+                                <Button color="inherit">
+                                    Dashboard
+                                </Button>
+                            </Link>
                             <Button color="inherit" onClick={handleLogout}>
                                 Logout
                             </Button>
+                        </>
                     }
 
                 </Toolbar>
