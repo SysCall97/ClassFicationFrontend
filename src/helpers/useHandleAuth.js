@@ -7,12 +7,22 @@ export const useHandleAuth = () => {
     const [loggedinUser, setLoggedinUser] = user;
 
     const handleAuth = async (payload, authFunc, loadingFunc) => {
-        loadingFunc(true);
-        const data = await authFunc(payload);
-        if(typeof(loadingFunc) === 'function') loadingFunc(false);
-        const _user = data.data;
-        await setUserToStorage(_user);
-        await setLoggedinUser({..._user, isLoggedIn: true});
+        if(typeof(loadingFunc) === 'function') loadingFunc(true);
+        try {
+            const data = await authFunc(payload);
+            if(typeof(loadingFunc) === 'function') loadingFunc(false);
+            const _user = data.data;
+            await setUserToStorage(_user);
+            await setLoggedinUser({..._user, isLoggedIn: true});
+            return {isSuccess: true}
+        } catch (error) {
+            if(typeof(loadingFunc) === 'function') loadingFunc(false);
+            return {
+                isSuccess: false,
+                title: error.response.statusText, 
+                message: error.response.data.message
+            };
+        }
     }
     return handleAuth;
 }
