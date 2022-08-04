@@ -33,7 +33,7 @@ const CreateClass = () => {
         setContent("");
         setTitle("");
     };
-    const handleSetClassname = (e) => {
+    const handleSetClassName = (e) => {
         const _className = e.target.value;
         if(!!_className && _className.length > 0) {
             setClassName(_className);
@@ -73,7 +73,7 @@ const CreateClass = () => {
                             Create Class
                         </Typography>
 
-                        <Textfield label="Class Name" handleBlur={handleSetClassname} style={null} type="text" />
+                        <Textfield label="Class Name" handleBlur={handleSetClassName} style={null} type="text" />
                         {classNameError && <span className='errorText'>Set valid class name</span>}
 
                         <Button variant="contained" onClick={handleCreateClass} fullWidth style={_marginTop}>Create Class</Button> 
