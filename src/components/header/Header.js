@@ -46,6 +46,19 @@ const Header = () => {
                                     Dashboard
                                 </Button>
                             </Link>
+                            {
+                                loggedinUser.role !== 1 && 
+                                <Link to="class/create">
+                                    <Button color="inherit">
+                                        Create Class
+                                    </Button>
+                                </Link>
+                            }
+                            <Link to="class/join">
+                                <Button color="inherit">
+                                    Join Class
+                                </Button>
+                            </Link>
                             <Button color="inherit" onClick={handleLogout}>
                                 Logout
                             </Button>
