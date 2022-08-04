@@ -2,8 +2,10 @@ import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import PrivateRoute from './components/common/PrivateRoute';
+import CreateClass from './components/createClass/CreateClass';
 import Dashboard from './components/dashboard/Dashboard';
 import Header from './components/header/Header';
+import JoinClass from './components/joinClass/JoinClass';
 import Signin from './components/signin/Signin';
 import Signup from './components/signup/Signup';
 import { checkToken } from './services/auth';
@@ -45,6 +47,18 @@ function App() {
                   </PrivateRoute>
                 }
                 />
+                <Route path="class">
+                  <Route path="create" element={
+                    <PrivateRoute isLoggedIn={loggedInUser.isLoggedIn}>
+                      <CreateClass />
+                    </PrivateRoute>
+                  } />
+                  <Route path="join" element={
+                    <PrivateRoute isLoggedIn={loggedInUser.isLoggedIn}>
+                      <JoinClass />
+                    </PrivateRoute>
+                  } />
+                </Route>
             </Routes>
           </div>
         </BrowserRouter>
