@@ -3,7 +3,3 @@
     z-index: 50;
     position: fixed !important;
 }
-a:-webkit-any-link {
-    text-decoration: none;
-    color: inherit;
-  }
