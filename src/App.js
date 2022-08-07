@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import ClassTimeline from './components/classTimeline/ClassTimeline';
 import PrivateRoute from './components/common/PrivateRoute';
 import CreateClass from './components/createClass/CreateClass';
 import Dashboard from './components/dashboard/Dashboard';
@@ -56,6 +57,11 @@ function App() {
                   <Route path="join" element={
                     <PrivateRoute isLoggedIn={loggedInUser.isLoggedIn}>
                       <JoinClass />
+                    </PrivateRoute>
+                  } />
+                  <Route path=":classCode" element={
+                    <PrivateRoute isLoggedIn={loggedInUser.isLoggedIn}>
+                      <ClassTimeline />
                     </PrivateRoute>
                   } />
                 </Route>
