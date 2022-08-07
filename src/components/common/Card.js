@@ -4,6 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 const _Card = (props) => {
     console.log(props)
@@ -28,7 +29,7 @@ const _Card = (props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">View Posts</Button>
+                <Link to={`../class/${classCode}`}><Button size="small">View Posts</Button></Link>
                 <Button size="small">View Messages</Button>
             </CardActions>
         </Card>
