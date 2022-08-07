@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
 const _Card = (props) => {
-    console.log(props)
     const { className, classCode, numOfStudents } = props._class;
     return (
         <Card sx={{ minWidth: 275, boxShadow: 3 }}>
