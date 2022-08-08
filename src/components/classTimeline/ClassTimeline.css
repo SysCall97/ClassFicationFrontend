@@ -21,7 +21,7 @@
     cursor: pointer;
     width: 25rm;
 }
-.childWrapper{
+.childWrapper, .childPostWrapper{
     grid-column: 4/10;
     background-color: #fff;
     padding: 3% 5%;
@@ -43,4 +43,11 @@ textarea{
 }
 .post{
     margin-top: 2%;
+}
+.infinite-scroll-component__outerdiv{
+    grid-column: 4/10;
+}
+.childPostWrapper{
+    margin-top: 15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
 }

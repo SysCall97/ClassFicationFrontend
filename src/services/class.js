@@ -4,7 +4,7 @@ export const create = payload => axios_instance.post("/class/create", payload);
 export const join = classCode => axios_instance.put(`/class/${classCode}/join`);
 
 export const createPost = ({classCode, payload}) => axios_instance.post(`/class/${classCode}/post`, payload);
-export const getPost = classCode => axios_instance.get(`/class/${classCode}/post`);
+export const getPost = ({classCode, page}) => axios_instance.get(`/class/${classCode}/post?page=${page}&limit=10`);
 export const updatePost = ({classCode, postId, payload}) => axios_instance.put(`/class/${classCode}/post/${postId}`, payload);
 export const deletePost = ({classCode, postId}) => axios_instance.delete(`/class/${classCode}/post/${postId}`);
 

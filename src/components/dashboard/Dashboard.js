@@ -10,10 +10,12 @@ const Dashboard = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { user } = useContext(context);
     const [loggedinUser, setLoggedinUser] = user;
 
     useEffect(() => {
+        setLoading(true);
         getClassList().then(res => setClassList(res.data)).catch(async err=> {
             setClassList([]);
             const {response} = err;
@@ -25,7 +27,7 @@ const Dashboard = () => {
                 await deleteAuthTokenFromStorage();
                 await setLoggedinUser({isLoggedIn: false});
             }
-        });
+        }).finally(() => setLoading(false));
     }, []);
     const handleClose = () => {
         setOpen(false);
@@ -35,6 +37,14 @@ const Dashboard = () => {
     return (
         <div className='classListWrapper'>
             <Dialog open={open} handleClose={handleClose} content={content} title={title} />
+            {classList.length === 0 && !loading && 
+                <div style={{
+                    width: '100%', 
+                    textAlign: 'center', 
+                    color: '#777', 
+                    fontWeight: '500', 
+                    fontSize: '30px'}}
+                >You haven't joined any class yet</div>}
             {classList.map(_class => <Card _class = {_class} key={_class.classCode} />)}
         </div>
     );
