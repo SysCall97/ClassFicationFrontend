@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const _Card = (props) => {
     const { className, classCode, numOfStudents } = props._class;
     return (
-        <Card sx={{ minWidth: 275, boxShadow: 3 }}>
+        <Card sx={{ minWidth: 275, boxShadow: 3 }} style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px", borderRadius: "10px"}}>
             <CardContent>
                 <Typography variant="h5" component="div">
                   {className}
