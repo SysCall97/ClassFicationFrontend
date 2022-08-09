@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -27,6 +27,9 @@ const Header = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    useEffect(()=>{
+        handleClose();
+    }, [loggedinUser])
 
     const handleLogout = async () => {
         await signout();
