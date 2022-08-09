@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -12,9 +12,21 @@ import { context } from "../../App";
 import { signout } from '../../services/auth';
 import { deleteAuthTokenFromStorage } from '../../helpers/storages';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 const Header = () => {
     const { user } = useContext(context);
     const [loggedinUser, setLoggedinUser] = user;
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const handleLogout = async () => {
         await signout();
@@ -40,29 +52,48 @@ const Header = () => {
                     }
                     {
                         loggedinUser.isLoggedIn && 
-                        <>
-                            <Link to="dashboard">
-                                <Button color="inherit">
-                                    Dashboard
-                                </Button>
-                            </Link>
-                            {
-                                loggedinUser.role !== 1 && 
-                                <Link to="class/create">
-                                    <Button color="inherit">
-                                        Create Class
-                                    </Button>
-                                </Link>
-                            }
-                            <Link to="class/join">
-                                <Button color="inherit">
-                                    Join Class
-                                </Button>
-                            </Link>
-                            <Button color="inherit" onClick={handleLogout}>
-                                Logout
+                        <div>
+                            <Button
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}
+                            >
+                                <AccountCircleIcon color="primary" fontSize="large" />
                             </Button>
-                        </>
+                            <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                                }}
+                            >
+                                <MenuItem>
+                                    <Link to="dashboard">
+                                        Dashboard
+                                    </Link>
+                                </MenuItem>
+                                {
+                                    loggedinUser.role !== 1 && 
+                                    <MenuItem>
+                                        <Link to="class/create">
+                                            Create Class
+                                        </Link>
+                                    </MenuItem>
+                                }
+                                <MenuItem>
+                                    <Link to="class/join">
+                                        Join Class
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem onClick={handleLogout}>
+                                    Logout
+                                </MenuItem>
+                            </Menu>
+                        </div>
                     }
 
                 </Toolbar>
