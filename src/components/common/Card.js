@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
 const _Card = (props) => {
-    const { className, classCode, numOfStudents } = props._class;
+    const { className, classCode, numOfStudents, numOfTeachers, numOfPosts } = props._class;
     return (
         <Card sx={{ minWidth: 275, boxShadow: 3 }} style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px", borderRadius: "10px"}}>
             <CardContent>
@@ -18,7 +18,10 @@ const _Card = (props) => {
                   Class code: {classCode}
                 </Typography>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                  Number of members: {numOfStudents}
+                  Number of students: {numOfStudents}
+                </Typography>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                  Number of teachers: {numOfTeachers}
                 </Typography>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary">
                   Unread messages: 0
