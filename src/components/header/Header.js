@@ -89,7 +89,7 @@ const Header = () => {
                                         Join Class
                                     </Link>
                                 </MenuItem>
-                                <MenuItem onClick={handleLogout}>
+                                <MenuItem style={{color: 'red'}} onClick={handleLogout}>
                                     Logout
                                 </MenuItem>
                             </Menu>
