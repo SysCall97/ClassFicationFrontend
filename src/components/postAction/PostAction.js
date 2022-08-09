@@ -3,9 +3,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import DeleteDialogue from '../common/DeleteDialogue';
 
-const PostAction = () => {
+const PostAction = ({postId, classCode, setPosts}) => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -13,8 +15,18 @@ const PostAction = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleCloseDeleteDialogue = () => {
+        setOpenDeleteDialogue(false);
+    };
+    const handleEdit = () => {};
+    const handleDelete = () => {
+        handleClose();
+        setOpenDeleteDialogue(true);
+    };
     return (
         <div>
+            <DeleteDialogue open={openDeleteDialogue} handleClose={handleCloseDeleteDialogue} type="post" postId={postId} classCode={classCode} setPosts={setPosts} />
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -33,9 +45,8 @@ const PostAction = () => {
                 'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}>Edit Post</MenuItem>
-                <MenuItem onClick={handleClose}>Delete Post</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleEdit}>Edit Post</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete Post</MenuItem>
             </Menu>
     </div>
     );
