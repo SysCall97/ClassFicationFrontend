@@ -32,6 +32,7 @@ const Header = () => {
     }, [loggedinUser])
 
     const handleLogout = async () => {
+        handleClose();
         await signout();
         await deleteAuthTokenFromStorage();
         await setLoggedinUser({isLoggedIn: false});
@@ -74,20 +75,20 @@ const Header = () => {
                                 'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem>
+                                <MenuItem onClick={handleClose}>
                                     <Link to="dashboard">
                                         Dashboard
                                     </Link>
                                 </MenuItem>
                                 {
                                     loggedinUser.role !== 1 && 
-                                    <MenuItem>
+                                    <MenuItem onClick={handleClose}>
                                         <Link to="class/create">
                                             Create Class
                                         </Link>
                                     </MenuItem>
                                 }
-                                <MenuItem>
+                                <MenuItem onClick={handleClose}>
                                     <Link to="class/join">
                                         Join Class
                                     </Link>
