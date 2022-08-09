@@ -3,13 +3,17 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { Button } from '@mui/material';
 import { createPost, getPost } from '../../services/class';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import PostAction from '../postAction/PostAction';
 
 const Posts = ({classCode}) => {
     const [isDisabled, setIsDisabled] = useState(false);
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
+    const [uid, setUid] = useState(null);
     useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        setUid(user.uid);
         getPosts();
     }, []);
     const getPosts = () => {
@@ -62,7 +66,12 @@ const Posts = ({classCode}) => {
                 >
                     {posts.map(post => 
                     <div className='childPostWrapper' style={{boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px"}} key={post._id}>
-                        <div className='cardName'>{post.userName}</div>
+                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <div className='cardName'>{post.userName}</div>
+                            {
+                                post.uid === uid && <PostAction />
+                            }
+                        </div>
                         <div className='date'>{post.date}</div>
                         <div className='post'>{post.post}</div>
                     </div>)}
