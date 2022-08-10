@@ -46,7 +46,7 @@ const PostAction = ({postId, classCode, setPosts, posts}) => {
                 }}
             >
                 <MenuItem onClick={handleEdit}>Edit Post</MenuItem>
-                <MenuItem onClick={handleDelete}>Delete Post</MenuItem>
+                <MenuItem onClick={handleDelete} style={{color:'red'}}>Delete Post</MenuItem>
             </Menu>
     </div>
     );
