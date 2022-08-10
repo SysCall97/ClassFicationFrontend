@@ -69,7 +69,7 @@ const Posts = ({classCode}) => {
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <div className='cardName'>{post.userName}</div>
                             {
-                                post.uid === uid && <PostAction postId={post._id} classCode={classCode} posts={posts} setPosts={setPosts} />
+                                post.uid === uid && <PostAction postId={post._id} content={post.post} classCode={classCode} posts={posts} setPosts={setPosts} />
                             }
                         </div>
                         <div className='date'>{post.date}</div>
