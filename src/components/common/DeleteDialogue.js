@@ -12,11 +12,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-const DeleteDialogue = ({open, handleClose, type, classCode, postId, setPosts}) => {
+const DeleteDialogue = ({open, handleClose, type, classCode, postId, posts, setPosts}) => {
     const handleDelete = () => {
         if(type === "post") {
             deletePost({classCode, postId}).then(res => {
-                setPosts(prev => prev.filter(prev._id !== postId));
+                const _posts = posts.filter(p => p._id !== postId);
+                setPosts(_posts);
+                handleClose();
             })
         }
     }
