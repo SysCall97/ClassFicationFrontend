@@ -4,10 +4,13 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteDialogue from '../common/DeleteDialogue';
+import EditDialogue from '../common/EditDialogue';
 
-const PostAction = ({postId, classCode, setPosts, posts}) => {
+const PostAction = ({postId, classCode, setPosts, posts, content}) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
+    const [openEditDialogue, setOpenEditDialogue] = useState(false);
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -15,11 +18,16 @@ const PostAction = ({postId, classCode, setPosts, posts}) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
     const handleCloseDeleteDialogue = () => {
         setOpenDeleteDialogue(false);
     };
-    const handleEdit = () => {};
+    const handleCloseEditDialogue = () => {
+        setOpenEditDialogue(false);
+    };
+    const handleEdit = () => {
+        handleClose();
+        setOpenEditDialogue(true);
+    };
     const handleDelete = () => {
         handleClose();
         setOpenDeleteDialogue(true);
@@ -27,6 +35,7 @@ const PostAction = ({postId, classCode, setPosts, posts}) => {
     return (
         <div>
             <DeleteDialogue open={openDeleteDialogue} handleClose={handleCloseDeleteDialogue} type="post" postId={postId} classCode={classCode} posts={posts} setPosts={setPosts} />
+            <EditDialogue open={openEditDialogue} content={content} handleClose={handleCloseEditDialogue} type="post" postId={postId} classCode={classCode} posts={posts} setPosts={setPosts} />
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
