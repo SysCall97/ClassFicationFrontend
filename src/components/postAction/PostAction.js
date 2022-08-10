@@ -5,7 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteDialogue from '../common/DeleteDialogue';
 
-const PostAction = ({postId, classCode, setPosts}) => {
+const PostAction = ({postId, classCode, setPosts, posts}) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
     const open = Boolean(anchorEl);
@@ -26,7 +26,7 @@ const PostAction = ({postId, classCode, setPosts}) => {
     };
     return (
         <div>
-            <DeleteDialogue open={openDeleteDialogue} handleClose={handleCloseDeleteDialogue} type="post" postId={postId} classCode={classCode} setPosts={setPosts} />
+            <DeleteDialogue open={openDeleteDialogue} handleClose={handleCloseDeleteDialogue} type="post" postId={postId} classCode={classCode} posts={posts} setPosts={setPosts} />
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
