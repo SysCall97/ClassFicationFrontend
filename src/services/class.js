@@ -13,3 +13,4 @@ export const putComment = ({classCode, postId, commentId, payload}) => axios_ins
 export const deleteComment = ({classCode, postId, commentId}) => axios_instance.post(`/class/${classCode}/post/${postId}/comment/${commentId}`);
 
 export const getStudents = ({classCode, page}) => axios_instance.get(`/class/${classCode}/students?page=${page}&limit=10`);
+export const getTeachers = ({classCode, page}) => axios_instance.get(`/class/${classCode}/teachers?page=${page}&limit=10`);
