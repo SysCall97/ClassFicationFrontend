@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useSigninNavigate } from '../../helpers/useNavigateSignin';
 import { getStudents } from '../../services/class';
 
 const StudentList = ({ classCode }) => {
     const [students, setStudents] = useState([]);
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
+    const handleSigninNavigate = useSigninNavigate();
     useEffect(() => {
         _getStudents();
     }, []);
@@ -14,6 +16,10 @@ const StudentList = ({ classCode }) => {
             setStudents(prev => [...prev, ...res.data.data.students]);
             setPage(prev => prev+1);
             setHasMore(res.data.data.hasMore);
+        }).catch(err => {
+            if(err.response.status === 401) {
+                handleSigninNavigate('../../signin');
+            }
         })
     }
     return (
