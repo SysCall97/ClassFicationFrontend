@@ -18,7 +18,6 @@ const Posts = ({classCode}) => {
     }, []);
     const getPosts = () => {
         getPost({classCode, page}).then(res => {
-            console.log(res)
             setPosts(prev => [...prev, ...res.data.data._posts]);
             setPage(prev => prev+1);
             setHasMore(res.data.data.hasMore);
