@@ -3,6 +3,7 @@ import './ClassTimeline.css'
 import { useParams } from 'react-router-dom';
 import Posts from '../posts/Posts';
 import StudentList from '../studentList/StudentList';
+import TeacherList from '../teacherList/TeacherList';
 
 const _option = {
     post: 1,
@@ -25,7 +26,7 @@ const ClassTimeline = () => {
                 option === _option.post && <Posts classCode={classCode} />
             }
             {
-                option === _option.teacher && <div className='childWrapper'>teachers</div>
+                option === _option.teacher && <TeacherList classCode={classCode} />
             }
             {
                 option === _option.student && <StudentList classCode={classCode} />
