@@ -15,6 +15,7 @@ import { deleteAuthTokenFromStorage } from '../../helpers/storages';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { green } from '@mui/material/colors';
 
 const Header = () => {
     const { user } = useContext(context);
@@ -64,7 +65,7 @@ const Header = () => {
                                 aria-expanded={open ? 'true' : undefined}
                                 onClick={handleClick}
                             >
-                                <AccountCircleIcon color="primary" fontSize="large" />
+                                <AccountCircleIcon sx={{ color: green[50] }} fontSize="large" />
                             </Button>
                             <Menu
                                 id="basic-menu"
