@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './ClassTimeline.css'
 import { useParams } from 'react-router-dom';
 import Posts from '../posts/Posts';
-import StudentList from '../studentList/StudentList';
-import TeacherList from '../teacherList/TeacherList';
+import MemberList from '../memberList/MemberList';
+import { getStudents, getTeachers } from '../../services/class';
 
 const _option = {
     post: 1,
@@ -26,10 +26,10 @@ const ClassTimeline = () => {
                 option === _option.post && <Posts classCode={classCode} />
             }
             {
-                option === _option.teacher && <TeacherList classCode={classCode} />
+                option === _option.teacher && <MemberList classCode={classCode} type="teachers" getMember={getTeachers} />
             }
             {
-                option === _option.student && <StudentList classCode={classCode} />
+                option === _option.student && <MemberList classCode={classCode} type="students" getMember={getStudents} />
             }
         </div>
     );
