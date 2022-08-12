@@ -15,7 +15,6 @@ import { deleteAuthTokenFromStorage } from '../../helpers/storages';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { green } from '@mui/material/colors';
 
 const Header = () => {
     const { user } = useContext(context);
