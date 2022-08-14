@@ -34,4 +34,5 @@ a:-webkit-any-link {
     font-weight: 500;
     color: #777;
     cursor: pointer;
+    margin-bottom: 10px;
 }

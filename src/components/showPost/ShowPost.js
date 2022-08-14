@@ -14,16 +14,7 @@ const ShowPost = ({ post, classCode, uid, posts, setPosts }) => {
             const payload = { comment: e.target.value };
             e.target.value = null;
             createComment({ classCode, postId, payload }).then(res => {
-                // res.data = {
-                //     "postId": "62f3c0f54eb1f84c30f180ce",
-                //     "uid": "62f163b23afa5e6728641c5a",
-                //     "active": true,
-                //     "comment": "Hi, Mashry. Welcome onboard.",
-                //     "_id": "62f663be23e7aac87b8e8100",
-                //     "createdAt": "2022-08-12T14:29:19.336Z",
-                //     "updatedAt": "2022-08-12T14:29:19.336Z",
-                //     "__v": 0
-                // }
+                setComments(prev => [...prev, res.data.data]);
             })
         }
     }
