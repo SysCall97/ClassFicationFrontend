@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
+import DeleteDialogue from '../common/DeleteDialogue';
 import EditDialogue from '../common/EditDialogue';
 
 const ShowComments = ({ comments, setComments, postId, classCode }) => {
     const [openEditDialogue, setOpenEditDialogue] = useState(false);
+    const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
+
     const handleCloseEditDialogue = () => {
         setOpenEditDialogue(false);
     };
+    const handleCloseDeleteDialogue = () => {
+        setOpenDeleteDialogue(false);
+    };
     const handleOpenEditDialog = () => {
         setOpenEditDialogue(true);
+    }
+    const handleOpenDeleteDialog = () => {
+        setOpenDeleteDialogue(true);
     }
     return (
         <div>
             {
                 comments.map(comment => 
                     <div key={comment._id}>
+                        <DeleteDialogue 
+                            open={openDeleteDialogue} 
+                            handleClose={handleCloseDeleteDialogue} 
+                            type="comment" 
+                            postId={postId} 
+                            classCode={classCode} 
+                            commentId={comment._id}
+                            posts={comments} 
+                            setPosts={setComments} />
+
                         <EditDialogue 
                             open={openEditDialogue} 
                             content={comment.comment} 
@@ -28,7 +47,7 @@ const ShowComments = ({ comments, setComments, postId, classCode }) => {
                         <div>{comment.comment}</div>
                         <div className='action-wrapper'>
                             <div className='action-btn' onClick={handleOpenEditDialog}>Edit</div>
-                            <div className='action-btn'>Delete</div>
+                            <div className='action-btn' onClick={handleOpenDeleteDialog}>Delete</div>
                         </div>
                     </div>
                 )

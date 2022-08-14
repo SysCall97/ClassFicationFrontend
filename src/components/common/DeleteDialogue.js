@@ -6,13 +6,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { Button } from '@mui/material';
-import { deletePost } from '../../services/class';
+import { deleteComment, deletePost } from '../../services/class';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-const DeleteDialogue = ({open, handleClose, type, classCode, postId, posts, setPosts}) => {
+const DeleteDialogue = ({open, handleClose, type, classCode, postId, posts, setPosts, commentId}) => {
     const handleDelete = () => {
         if(type === "post") {
             deletePost({classCode, postId}).then(res => {
@@ -20,6 +20,13 @@ const DeleteDialogue = ({open, handleClose, type, classCode, postId, posts, setP
                 setPosts(_posts);
                 handleClose();
             })
+        }
+        if(type === "comment") {
+            deleteComment({classCode, postId, commentId}).then(res => {
+                const _comments = posts.filter(p => p._id !== commentId);
+                setPosts(_comments);
+                handleClose();
+            });
         }
     }
     return (
