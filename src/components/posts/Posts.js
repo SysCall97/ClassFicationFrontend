@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { Button, Divider } from '@mui/material';
-import { createComment, createPost, getPost } from '../../services/class';
+import { Button } from '@mui/material';
+import { createPost, getPost } from '../../services/class';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import PostAction from '../postAction/PostAction';
+import ShowPost from '../showPost/ShowPost';
 
 const Posts = ({classCode}) => {
     const [isDisabled, setIsDisabled] = useState(false);
@@ -35,24 +35,6 @@ const Posts = ({classCode}) => {
         }).finally(() => setIsDisabled(false));
     }
 
-    const handleCreateComment = (postId, e) => {
-        if(e.key === "Enter" && !e.shiftKey) {
-            const payload = { comment: e.target.value };
-            e.target.value = null;
-            createComment({ classCode, postId, payload }).then(res => {
-                // res.data = {
-                //     "postId": "62f3c0f54eb1f84c30f180ce",
-                //     "uid": "62f163b23afa5e6728641c5a",
-                //     "active": true,
-                //     "comment": "Hi, Mashry. Welcome onboard.",
-                //     "_id": "62f663be23e7aac87b8e8100",
-                //     "createdAt": "2022-08-12T14:29:19.336Z",
-                //     "updatedAt": "2022-08-12T14:29:19.336Z",
-                //     "__v": 0
-                // }
-            })
-        }
-    }
     return (
         <>
             <div className='childWrapper'>
@@ -83,23 +65,8 @@ const Posts = ({classCode}) => {
                     style={{overflow: "none"}}
                 >
                     {posts.map(post => 
-                    <div className='childPostWrapper' style={{boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px"}} key={post._id}>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <div className='cardName'>{post.userName}</div>
-                            {
-                                post.uid === uid && <PostAction postId={post._id} content={post.post} classCode={classCode} posts={posts} setPosts={setPosts} />
-                            }
-                        </div>
-                        <div className='date'>{post.date}</div>
-                        <div className='post'>{post.post}</div>
-                        <Divider style={{marginBottom: '10px', marginTop: '20px'}} />
-                        <TextareaAutosize
-                            minRows={1}
-                            placeholder="Write a comment..."
-                            onKeyUp={(e) => handleCreateComment(post._id, e)}
-                            style={{ width: '95%', marginTop: '10px', marginBottom: '10px', borderRadius: '100px' }}
-                        />
-                    </div>)}
+                        <ShowPost key={post._id} post={post} classCode={classCode} uid={uid} posts={posts} setPosts={setPosts} />
+                    )}
                 </InfiniteScroll>
         }
         </>
