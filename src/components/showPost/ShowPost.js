@@ -54,7 +54,7 @@ const ShowPost = ({ post, classCode, uid, posts, setPosts }) => {
             <Divider style={{marginBottom: '10px', marginTop: '10px'}} />
             {!isCommentLoaded && <Button color="inherit" onClick={getPostComment}> Load Comments </Button>}
             {isCommentLoaded && !comments.length && <div style={{textAlign: 'center'}}>No comments yet</div>}
-            {isCommentLoaded && comments.length > 0 && <ShowComments comments={comments} setComments={setComments} /> }
+            {isCommentLoaded && comments.length > 0 && <ShowComments comments={comments} setComments={setComments} postId={post._id} classCode={classCode} /> }
         </div>
     );
 };

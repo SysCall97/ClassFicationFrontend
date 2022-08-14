@@ -24,3 +24,14 @@ a:-webkit-any-link {
     text-decoration: none;
     color: inherit;
 }
+.action-wrapper{
+    width: 9.5%;
+    display: flex;
+    justify-content: space-between;
+}
+.action-btn{
+    font-size: 13px;
+    font-weight: 500;
+    color: #777;
+    cursor: pointer;
+}
