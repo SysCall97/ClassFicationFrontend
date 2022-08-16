@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSigninNavigate } from '../../helpers/useNavigateSignin';
@@ -37,10 +38,14 @@ const MemberList = ({ classCode, getMember, type }) => {
                     }}>Loading...</div>}
                     style={{overflow: "none"}}
                 >
+                    <div className='childMemberWrapper'>
                     {members.map(member => 
-                    <div className='childPostWrapper' style={{boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px"}} key={member._id}>
-                        <div>{member.name}</div>
-                    </div>)}
+                        <div className='memberDiv' key={member._id}>
+                            <div style={{marginBottom: '2%'}}> {member.name} </div>
+                            <Divider />
+                        </div>
+                    )}
+                    </div>
                 </InfiniteScroll>
             }
             {
