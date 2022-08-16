@@ -49,7 +49,7 @@ const Posts = ({classCode}) => {
                     <Button variant="contained" onClick={handleCreatePost} disabled={isDisabled}>Post</Button>
                 </div>
             </div>
-            <div style={{gridColumn:"4/10", fontWeight: "600", fontSize: "20px"}}>Posts</div>
+            <div style={{gridColumn:"4/12", fontWeight: "600", fontSize: "20px"}}>Posts</div>
             {
                 !!posts.length && 
                 <InfiniteScroll
@@ -57,7 +57,7 @@ const Posts = ({classCode}) => {
                     next={getPosts}
                     hasMore={hasMore}
                     loader={<div style={{
-                        gridColumn:"4/10",
+                        gridColumn:"4/12",
                         textAlign: 'center',
                         marginTop: '15px',
                         color: '#555'

@@ -8,7 +8,8 @@ import { getStudents, getTeachers } from '../../services/class';
 const _option = {
     post: 1,
     teacher: 2,
-    student: 3
+    student: 3,
+    assignments: 4
 };
 
 const ClassTimeline = () => {
@@ -18,9 +19,10 @@ const ClassTimeline = () => {
     return (
         <div className='wrapper'>
             <div className='optionWrapper'>
-                <div onClick={() => setOption(_option.post)}>Posts</div>
-                <div onClick={() => setOption(_option.teacher)}>Teachers</div>
-                <div onClick={() => setOption(_option.student)}>Students</div>
+                <div className='_option' onClick={() => setOption(_option.post)}>Posts</div>
+                <div className='_option' onClick={() => setOption(_option.teacher)}>Teachers</div>
+                <div className='_option' onClick={() => setOption(_option.student)}>Students</div>
+                <div className='_option' onClick={() => setOption(_option.student)}>Assignments</div>
             </div>
             {
                 option === _option.post && <Posts classCode={classCode} />

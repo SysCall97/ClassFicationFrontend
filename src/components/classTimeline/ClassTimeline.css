@@ -1,11 +1,11 @@
 .wrapper{
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(16, 1fr);
     gap: 15px;
     margin-bottom: 2%;
 }
 .optionWrapper{
-    grid-column: 4/10;
+    grid-column: 4/12;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
@@ -22,7 +22,7 @@
     width: 25rm;
 }
 .childWrapper, .childPostWrapper{
-    grid-column: 4/10;
+    grid-column: 4/12;
     background-color: rgb(252, 249, 249);
     padding: 3% 5%;
     border-radius: 10px;
@@ -45,7 +45,7 @@ textarea{
     margin-top: 2%;
 }
 .infinite-scroll-component__outerdiv{
-    grid-column: 4/10;
+    grid-column: 4/12;
 }
 .childPostWrapper{
     margin-top: 15px;
@@ -60,4 +60,7 @@ textarea{
 }
 .memberDiv{
     padding-bottom: 2%;
+}
+._option{
+    cursor: pointer;
 }
