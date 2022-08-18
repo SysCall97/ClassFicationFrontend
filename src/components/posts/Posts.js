@@ -41,7 +41,7 @@ const Posts = ({classCode}) => {
                 <div className='cardName'>Create Post</div>
                 <TextareaAutosize
                     id='postContent'
-                    minRows={5}
+                    minRows={8}
                     placeholder="Update about this class"
                     style={{ width: '95%', marginTop: '10px', marginBottom: '10px' }}
                 />
