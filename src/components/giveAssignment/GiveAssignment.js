@@ -1,12 +1,15 @@
-import { Button } from '@mui/material';
-import axios from 'axios';
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
 import DatePicker from 'sassy-datepicker';
+import { useDialogHandler } from '../../helpers/useDialogHandler';
 import { saveAssignment } from '../../services/class';
+import Dialog from '../common/Dialog';
 
 const GiveAssignment = ({ classCode }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [lastDate, setLastDate] = useState(null);
+
+    const [ open, setOpen, title, setTitle, content, setContent, handleDialogClose ] = useDialogHandler();
 
     const onDateChange = (_date) => {
         const date = new Date(_date);
@@ -19,11 +22,16 @@ const GiveAssignment = ({ classCode }) => {
         data.append('type', 'assignment');
         data.append('classCode', classCode);
         
-        saveAssignment({classCode, payload: data});
+        saveAssignment({classCode, payload: data}).then(res => {
+            setTitle("Success");
+            setContent(res.data.message);
+            setOpen(true);
+        });
     }
 
     return (
         <div className='assignmentSection'>
+            <Dialog open={open} handleClose={handleDialogClose} content={content} title={title} />
             <div style={{marginBottom: '4%'}} className='cardName'>Add Assignment</div>
             <button className="file_upload" type="button">
                 <span className="btn_lbl">Browse</span>
