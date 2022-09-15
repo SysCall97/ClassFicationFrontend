@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import Posts from '../posts/Posts';
 import MemberList from '../memberList/MemberList';
 import { getStudents, getTeachers } from '../../services/class';
-import GiveAssignment from '../giveAssignment/GiveAssignment';
 import { context } from '../../App';
+import Assignment from '../Assignment/Assignment';
 
 const _option = {
     post: 1,
@@ -29,13 +29,16 @@ const ClassTimeline = () => {
                 <div className='_option' style={option === _option.assignments ? {backgroundColor: '#eee'} : {}} onClick={() => setOption(_option.assignments)}>Assignments</div>
             </div>
             {
-                option === _option.post && <><Posts classCode={classCode} /> {loggedinUser.role === 1 && <GiveAssignment classCode={classCode} />} </>
+                option === _option.post && <Posts classCode={classCode} />
             }
             {
                 option === _option.teacher && <MemberList classCode={classCode} type="teachers" getMember={getTeachers} />
             }
             {
                 option === _option.student && <MemberList classCode={classCode} type="students" getMember={getStudents} />
+            }
+            {
+                option === _option.assignments && <Assignment classCode={classCode} type={loggedinUser.role} />
             }
             
         </div>
