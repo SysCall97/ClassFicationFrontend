@@ -38,7 +38,7 @@ const ClassTimeline = () => {
                 option === _option.student && <MemberList classCode={classCode} type="students" getMember={getStudents} />
             }
             {
-                option === _option.assignments && <Assignment classCode={classCode} type={loggedinUser.role} />
+                option === _option.assignments && <Assignment classCode={classCode} type={loggedinUser.role == 1? "teachers" : "students"} />
             }
             
         </div>
