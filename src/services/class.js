@@ -2,7 +2,7 @@ import axios_instance from "../lib/axios";
 
 export const create = payload => axios_instance.post("/class/create", payload);
 export const join = classCode => axios_instance.put(`/class/${classCode}/join`);
-export const saveAssignment = ({classCode, payload}) => axios_instance.post(`/class/${classCode}/assignment`, payload);
+export const saveAssignment = ({classCode, payload}) => axios_instance.post(`/class/${classCode}/teachers/assignment`, payload);
 
 export const createPost = ({classCode, payload}) => axios_instance.post(`/class/${classCode}/post`, payload);
 export const getPost = ({classCode, page}) => axios_instance.get(`/class/${classCode}/post?page=${page}&limit=10`);
@@ -16,3 +16,4 @@ export const deleteComment = ({classCode, postId, commentId}) => axios_instance.
 
 export const getStudents = ({classCode, page}) => axios_instance.get(`/class/${classCode}/students?page=${page}&limit=10`);
 export const getTeachers = ({classCode, page}) => axios_instance.get(`/class/${classCode}/teachers?page=${page}&limit=10`);
+export const getAssignments = ({classCode, page, type, status}) => axios_instance.get(`/class/${classCode}/${type}/assignment?status=${status}&page=${page}&limit=10`);
