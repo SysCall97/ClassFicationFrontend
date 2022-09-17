@@ -1,32 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getAssignments } from '../../services/class';
+import { useDialogHandler } from '../../helpers/useDialogHandler';
+
+import { Button, Select, FormControl, MenuItem } from '@mui/material';
 import GiveAssignment from '../giveAssignment/GiveAssignment';
+import Dialog from '../common/Dialog';
 
 const Assignment = ({ classCode, type }) => {
-    const _options = {
-        add: 1,
-        previous: 2,
-        current: 3,
-        scheduled: 4
+    const options = [
+        {value: "past", text: "Previous"},
+        {value: "present", text: "Current"},
+        {value: "future", text: "Scheduled"}
+    ];
+    const [status, setStatus] = useState(options[0].value);
+    const [assignments, setAssignments] = useState([]);
+    const [page, setPage] = useState(0);
+    const [ open, setOpen, title, setTitle, content, setContent, handleDialogClose ] = useDialogHandler();
+
+    const _getAssignments = () => {
+        getAssignments({ type, classCode, status, page }).then(val => setAssignments(val.data));
     }
-    const [option, setOption] = useState(_options.previous);
+
+    useEffect(()=>{
+        _getAssignments();
+        setTitle("Add Assignment");
+    },[]);
+
+    useEffect(()=>{
+        console.log(status);
+        console.log(type);
+    }, [status]);
+
+    const openDialog = () => {
+        setContent(() => <GiveAssignment classCode={classCode} close={handleDialogClose} />);
+        setTitle("Add Assignment")
+        setOpen(true);
+    }
+
     return (
         <>
-            <div className='childPostWrapper' style={{
-                display: 'flex',
-                flexFlow: 'row nowrap',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                margin: '2px 0px',
-                padding: '10px 13px'
-            }}>
-                {type === 1 && <div className='_option' onClick={() => setOption(_options.add)}>Add</div>}
-                <div className='_option' onClick={() => setOption(_options.previous)}>Previous</div>
-                <div className='_option' onClick={() => setOption(_options.current)}>Current</div>
-                <div className='_option' onClick={() => setOption(_options.scheduled)}>Scheduled</div>
+            <Dialog open={open} handleClose={handleDialogClose} content={content} title={title} />
+            <div className='filterWrapper'>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 130, marginRight: 3 }}>
+                    <Select
+                        sx = {{ textAlign: 'center' }}
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                    >
+                        {
+                            options.map(option => <MenuItem value={option.value} key={option.value}>{option.text}</MenuItem>)
+                        }
+                    </Select>
+                </FormControl>
+                <Button sx={{marginTop: 0.3}} variant="outlined" color='success' onClick={openDialog}>Add Assignment</Button>
             </div>
-            {
-                option === _options.add && <GiveAssignment classCode={classCode} />
-            }
         </>
     );
 };
