@@ -10,11 +10,11 @@ import dayjs from 'dayjs';
 
 const GiveAssignment = ({ classCode }) => {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [lastDate, setLastDate] = useState(null);
 
     const [ open, setOpen, title, setTitle, content, setContent, handleDialogClose ] = useDialogHandler();
     const [startDateTimeValue, setStartDateTimeValue] = useState(dayjs(Date.now()));
     const [endDateTimeValue, setEndDateTimeValue] = useState(dayjs(Date.now()));
+    const [assignmentTitle, setAssignmentTitle] = useState('');
 
     const handleStartDateTimeValue = (_date) => {
         const date = new Date(_date);
@@ -27,20 +27,32 @@ const GiveAssignment = ({ classCode }) => {
     };
 
     const getPayload = () => {
+        let flag = true;
         const data = new FormData();
         data.append('file', selectedFile);
         data.append('startDate', startDateTimeValue);
         data.append('lastDate', endDateTimeValue);
         data.append('type', 'assignment');
         data.append('classCode', classCode);
+        data.append('title', assignmentTitle);
 
-        return data;
+        if(!assignmentTitle || assignmentTitle.length === 0) {
+            flag = false;
+            setTitle("Field required");
+            setContent("Please fill the assignment name field");
+            setOpen(true);
+        }
+
+        return [data, flag];
     }
 
     const handleAssign = () => {
-        const payload = getPayload();
+        const [payload, flag] = getPayload();
         
+        if(flag)
         saveAssignment({classCode, payload}).then(res => {
+            setSelectedFile(null);
+            setAssignmentTitle('');
             setTitle("Success");
             setContent(res.data.message);
             setOpen(true);
@@ -50,7 +62,6 @@ const GiveAssignment = ({ classCode }) => {
     return (
         <>
             <Dialog open={open} handleClose={handleDialogClose} content={content} title={title} />
-            <div style={{gridColumn:"5/13", fontWeight: "600", fontSize: "20px", marginBottom:'2%'}}>Add Assignment</div>
             <div style={{gridColumn:"5/13"}}>
                 <div style={{marginBottom: '30px'}}>
                 <button className="file_upload" type="button">
@@ -64,6 +75,16 @@ const GiveAssignment = ({ classCode }) => {
                     />
                 </button>
                 </div>
+                <TextField 
+                    style={{marginBottom: '30px'}} 
+                    id="outlined-basic" 
+                    label="Assignment title" 
+                    variant="outlined"
+                    value={assignmentTitle ?? ""}
+                    inputProps={{ maxLength: 30 }}
+                    onChange={(e) => setAssignmentTitle(e.target.value ?? '')}
+                />
+                <br/>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                         label="Start date and time"
