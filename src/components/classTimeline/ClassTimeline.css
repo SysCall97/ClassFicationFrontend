@@ -30,8 +30,14 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 4px;
 }
+.assignmentWrapper{
+    grid-column: 5/13;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
 .filterWrapper{
-  grid-column: 9/13;
+    grid-column: 9/13;
 }
 textarea{
     border: 1px solid #aaa;

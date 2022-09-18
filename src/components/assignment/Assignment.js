@@ -5,12 +5,13 @@ import { useDialogHandler } from '../../helpers/useDialogHandler';
 import { Button, Select, FormControl, MenuItem } from '@mui/material';
 import GiveAssignment from '../giveAssignment/GiveAssignment';
 import Dialog from '../common/Dialog';
+import AssignmentCard from '../assignmentCard/AssignmentCard';
 
 const Assignment = ({ classCode, type }) => {
     const options = [
-        {value: "past", text: "Previous"},
+        {value: "past", text: "Due"},
         {value: "present", text: "Current"},
-        {value: "future", text: "Scheduled"}
+        {value: "future", text: "Upcoming"}
     ];
     const [status, setStatus] = useState(options[0].value);
     const [assignments, setAssignments] = useState([]);
@@ -23,12 +24,12 @@ const Assignment = ({ classCode, type }) => {
 
     useEffect(()=>{
         _getAssignments();
-        setTitle("Add Assignment");
     },[]);
 
     useEffect(()=>{
-        console.log(status);
-        console.log(type);
+        setAssignments([]);
+        setPage(0);
+        getAssignments({ type, classCode, status, page }).then(val => setAssignments(val.data));
     }, [status]);
 
     const openDialog = () => {
@@ -55,6 +56,11 @@ const Assignment = ({ classCode, type }) => {
                     </Select>
                 </FormControl>
                 <Button sx={{marginTop: 0.3}} variant="outlined" color='success' onClick={openDialog}>Add Assignment</Button>
+            </div>
+            <div className='assignmentWrapper'>
+                {
+                    !!assignments.length && assignments.map(assignment => <AssignmentCard key={assignment._id} status={status} assignment={assignment} type={type} />)
+                }
             </div>
         </>
     );

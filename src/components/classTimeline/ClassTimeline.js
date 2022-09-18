@@ -5,7 +5,7 @@ import Posts from '../posts/Posts';
 import MemberList from '../memberList/MemberList';
 import { getStudents, getTeachers } from '../../services/class';
 import { context } from '../../App';
-import Assignment from '../Assignment/Assignment';
+import Assignment from '../assignment/Assignment';
 
 const _option = {
     post: 1,
