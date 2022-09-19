@@ -17,3 +17,4 @@ export const deleteComment = ({classCode, postId, commentId}) => axios_instance.
 export const getStudents = ({classCode, page}) => axios_instance.get(`/class/${classCode}/students?page=${page}&limit=10`);
 export const getTeachers = ({classCode, page}) => axios_instance.get(`/class/${classCode}/teachers?page=${page}&limit=10`);
 export const getAssignments = ({classCode, page, type, status}) => axios_instance.get(`/class/${classCode}/${type}/assignment?status=${status}&page=${page}&limit=10`);
+export const getAssignmentLink = ({classCode, assignmentId}) => axios_instance.get(`/class/${classCode}/assignments/${assignmentId}`);
