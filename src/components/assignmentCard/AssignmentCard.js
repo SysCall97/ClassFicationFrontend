@@ -49,11 +49,11 @@ const AssignmentCard = ({ assignment, type, status }) => {
                   Last Time: {endDateTime.time}
                 </Typography>
                 {
-                type === "students" && status !== "future" && 
-                <Typography sx={{ fontSize: 13 }} color="text.secondary">
-                  Submission status: Submitted
-                </Typography>
-            }
+                    type === "students" && status !== "future" && 
+                    <Typography sx={{ fontSize: 13 }} color="text.secondary">
+                    Submission status: Submitted
+                    </Typography>
+                }
             </CardContent>
             {
                 !(type === "students" && status === "future") &&
