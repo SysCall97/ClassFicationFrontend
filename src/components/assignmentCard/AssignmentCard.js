@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {getDateString} from '../../helpers/getDateString';
 import { getTimeString } from '../../helpers/getTimeString';
+import { getAssignmentLink } from '../../services/class';
 
 const AssignmentCard = ({ assignment, type, status }) => {
     const { _id, title, classCode, startDate, lastDate, teacher } = assignment;
@@ -24,6 +25,11 @@ const AssignmentCard = ({ assignment, type, status }) => {
             time: getTimeString(lastDate)
         });
     }, []);
+
+    const handleOpenAssignment = async () => {
+        const data = await getAssignmentLink({classCode, assignmentId: _id});
+        window.open(data.data.link);
+    }
     return (
         <Card sx={{ minWidth: 295, margin: 1 }} style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px", borderRadius: "10px"}}>
             <CardContent>
@@ -58,7 +64,7 @@ const AssignmentCard = ({ assignment, type, status }) => {
             {
                 !(type === "students" && status === "future") &&
                 <CardActions>
-                    <Button variant="contained" color="inherit" fullWidth>
+                    <Button variant="contained" color="inherit" fullWidth onClick={handleOpenAssignment}>
                         View Assignment
                     </Button>
                 </CardActions>
