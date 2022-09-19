@@ -59,7 +59,7 @@ const Assignment = ({ classCode, type }) => {
             </div>
             <div className='assignmentWrapper'>
                 {
-                    !!assignments.length && assignments.map(assignment => <AssignmentCard key={assignment._id} status={status} assignment={assignment} type={type} />)
+                    !!assignments.length && assignments.map((assignment, index) => <AssignmentCard key={`${status}-${index}`} status={status} assignment={assignment} type={type} />)
                 }
             </div>
         </>
