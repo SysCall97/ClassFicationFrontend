@@ -12,13 +12,19 @@ import SubmitAssignment from '../submitAssignment/SubmitAssignment';
 import Dialog from '../common/Dialog';
 
 const AssignmentCard = ({ assignment, type, status }) => {
-    const { _id, title, classCode, startDate, lastDate, teacher } = assignment;
+    const { _id, title, classCode, startDate, lastDate, teacher, submissions } = assignment;
     const { name } = teacher;
     const [startDateTime, setStartDateTime] = useState({date: null, time: null});
     const [endDateTime, setEndDateTime] = useState({date: null, time: null});
     const [ open, setOpen, _title, setTitle, content, setContent, handleDialogClose ] = useDialogHandler();
+    const [submissionStatus, setSubmissionStatus] = useState(null);
 
     useEffect(() => {
+        setSubmissionStatus(()=> {
+            if(submissions.length === 0) return "Not submitted";
+            if(submissions[0].createdAt < lastDate) return `Submitted`;
+            else return `Submitted (late)`;
+        });
         setStartDateTime({
             date: getDateString(startDate),
             time: getTimeString(startDate)
@@ -67,7 +73,7 @@ const AssignmentCard = ({ assignment, type, status }) => {
                     {
                         type === "students" && status !== "future" && 
                         <Typography sx={{ fontSize: 13 }} color="text.secondary">
-                        Submission status: Submitted
+                        Submission status: {submissionStatus}
                         </Typography>
                     }
                 </CardContent>
@@ -80,7 +86,7 @@ const AssignmentCard = ({ assignment, type, status }) => {
                     </CardActions>
                 }
                 {
-                    type === "students" && status !== "future" && 
+                    type === "students" && status !== "future" && submissionStatus === "Not submitted" && 
                     <CardActions>
                         <Button variant="contained" color="primary" fullWidth onClick={openDialog}>
                             Submit

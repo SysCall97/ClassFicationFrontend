@@ -55,7 +55,7 @@ const Assignment = ({ classCode, type }) => {
                         }
                     </Select>
                 </FormControl>
-                <Button sx={{marginTop: 0.3}} variant="outlined" color='success' onClick={openDialog}>Add Assignment</Button>
+                {type === "teachers" && <Button sx={{marginTop: 0.3}} variant="outlined" color='success' onClick={openDialog}>Add Assignment</Button>}
             </div>
             <div className='assignmentWrapper'>
                 {
