@@ -33,7 +33,7 @@ const Assignment = ({ classCode, type }) => {
     }, [status]);
 
     const openDialog = () => {
-        setContent(() => <GiveAssignment classCode={classCode} close={handleDialogClose} />);
+        setContent(() => <GiveAssignment classCode={classCode} />);
         setTitle("Add Assignment")
         setOpen(true);
     }

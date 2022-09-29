@@ -18,3 +18,5 @@ export const getStudents = ({classCode, page}) => axios_instance.get(`/class/${c
 export const getTeachers = ({classCode, page}) => axios_instance.get(`/class/${classCode}/teachers?page=${page}&limit=10`);
 export const getAssignments = ({classCode, page, type, status}) => axios_instance.get(`/class/${classCode}/${type}/assignment?status=${status}&page=${page}&limit=10`);
 export const getAssignmentLink = ({classCode, assignmentId}) => axios_instance.get(`/class/${classCode}/assignments/${assignmentId}`);
+
+export const submitAssignment = ({classCode, assignmentId, payload}) => axios_instance.post(`/class/${classCode}/students/assignment/${assignmentId}/submission`, payload);
