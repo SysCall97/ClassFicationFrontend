@@ -9,12 +9,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-const _Dialog = ({open, handleClose, content, title}) => {
+const _Dialog = ({open, handleClose, content, title, maxWidth}) => {
     return (
         <Dialog
             open={open}
             onClose={handleClose}
             fullWidth={true}
+            maxWidth={maxWidth ?? 'sm'}
             TransitionComponent={Transition}
             keepMounted
             aria-labelledby="alert-dialog-title"
