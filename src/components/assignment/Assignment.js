@@ -6,6 +6,7 @@ import { Button, Select, FormControl, MenuItem } from '@mui/material';
 import GiveAssignment from '../giveAssignment/GiveAssignment';
 import Dialog from '../common/Dialog';
 import AssignmentCard from '../assignmentCard/AssignmentCard';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Assignment = ({ classCode, type }) => {
     const options = [
@@ -16,21 +17,25 @@ const Assignment = ({ classCode, type }) => {
     const [status, setStatus] = useState(options[0].value);
     const [assignments, setAssignments] = useState([]);
     const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
     const [ open, setOpen, title, setTitle, content, setContent, handleDialogClose ] = useDialogHandler();
 
     const _getAssignments = () => {
-        getAssignments({ type, classCode, status, page }).then(val => setAssignments(val.data));
+        getAssignments({ type, classCode, status, page }).then(val => {
+            setHasMore(val.data === 10);
+            setPage(prev => prev+1);
+            setAssignments(val.data);
+        });
     }
 
     useEffect(()=>{
         _getAssignments();
-    },[]);
-
-    useEffect(()=>{
-        setAssignments([]);
-        setPage(0);
-        getAssignments({ type, classCode, status, page }).then(val => setAssignments(val.data));
     }, [status]);
+    const changeStatus = e => {
+        setAssignments([]);
+        setPage(prev => prev-prev);
+        setStatus(e.target.value);
+    }
 
     const openDialog = () => {
         setContent(() => <GiveAssignment classCode={classCode} />);
@@ -48,7 +53,7 @@ const Assignment = ({ classCode, type }) => {
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
                         value={status}
-                        onChange={(e) => setStatus(e.target.value)}
+                        onChange={(e) => changeStatus(e)}
                     >
                         {
                             options.map(option => <MenuItem value={option.value} key={option.value}>{option.text}</MenuItem>)
@@ -59,7 +64,22 @@ const Assignment = ({ classCode, type }) => {
             </div>
             <div className='assignmentWrapper'>
                 {
-                    !!assignments.length && assignments.map((assignment, index) => <AssignmentCard key={`${status}-${index}`} status={status} assignment={assignment} type={type} />)
+                    !!assignments.length && 
+                    <InfiniteScroll
+                        dataLength={assignments.length}
+                        next={getAssignments}
+                        hasMore={hasMore}
+                        loader={<div style={{
+                            gridColumn:"4/12",
+                            textAlign: 'center',
+                            marginTop: '15px',
+                            color: '#555'
+                        }}>Loading...</div>}
+                        style={{overflow: "none"}}
+                    >
+                        {assignments.map((assignment, index) => 
+                        <AssignmentCard key={`${status}-${index}`} status={status} assignment={assignment} type={type} />)}
+                    </InfiniteScroll>
                 }
             </div>
         </>
