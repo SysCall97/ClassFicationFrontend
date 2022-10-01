@@ -20,3 +20,5 @@ export const getAssignments = ({classCode, page, type, status}) => axios_instanc
 export const getAssignmentLink = ({classCode, assignmentId}) => axios_instance.get(`/class/${classCode}/assignments/${assignmentId}`);
 
 export const submitAssignment = ({classCode, assignmentId, payload}) => axios_instance.post(`/class/${classCode}/students/assignment/${assignmentId}/submission`, payload);
+export const saveMark = ({ submissionId, payload, assignmentId, classCode }) => axios_instance.patch(`/class/${classCode}/students/assignment/${assignmentId}/submission/${submissionId}`, payload);
+export const getSubmissionLink = ({classCode, assignmentId, submissionId}) => axios_instance.get(`/class/${classCode}/assignments/${assignmentId}/submission/${submissionId}`);
