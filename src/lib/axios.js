@@ -1,8 +1,8 @@
 import axios from "axios";
+import { baseURL } from "./domain";
 
 const instance = axios.create({
-	baseURL: "http://localhost:5000/api/v1",
-	// baseURL: "https://class-fication-backend.herokuapp.com/api/v1",
+	baseURL: baseURL,
 	headers: { Authorization: "Bearer " + localStorage.tid },
 });
 
