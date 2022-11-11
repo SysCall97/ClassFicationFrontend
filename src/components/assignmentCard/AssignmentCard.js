@@ -91,7 +91,7 @@ const AssignmentCard = ({ assignment, type, status }) => {
                     {
                         type === "students" && status !== "future" && 
                         <Typography sx={{ fontSize: 13 }} color="text.secondary">
-                            Score: {submissions[0].mark === -1 ? "Not evaluated yet" : submissions[0].mark}
+                            Score: {submissions.length > 0 && submissions[0]?.mark === -1 ? "Not evaluated yet" : submissions[0]?.mark}
                         </Typography>
                     }
                 </CardContent>
