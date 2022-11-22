@@ -67,7 +67,7 @@ const Assignment = ({ classCode, type }) => {
                     !!assignments.length && 
                     <InfiniteScroll
                         dataLength={assignments.length}
-                        next={getAssignments}
+                        next={_getAssignments}
                         hasMore={hasMore}
                         loader={<div style={{
                             gridColumn:"4/12",
@@ -78,7 +78,8 @@ const Assignment = ({ classCode, type }) => {
                         style={{overflow: "none"}}
                     >
                         {assignments.map((assignment, index) => 
-                        <AssignmentCard key={`${status}-${index}`} status={status} assignment={assignment} type={type} />)}
+                        <AssignmentCard key={`${status}-${index}`} status={status} assignment={assignment} type={type} />
+                        )}
                     </InfiniteScroll>
                 }
             </div>

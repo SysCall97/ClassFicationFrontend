@@ -59,7 +59,7 @@ const AssignmentCard = ({ assignment, type, status }) => {
     return (
         <>
             <Dialog open={open} handleClose={handleDialogClose} content={content} title={_title} maxWidth={maxWidth} />
-            <Card sx={{ minWidth: 295, margin: 1 }} style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px", borderRadius: "10px"}}>
+            <Card sx={{ maxWidth: 280, margin: 1 }} style={{ boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px", borderRadius: "10px"}}>
                 <CardContent>
                     <Typography variant="h6" component="div">
                         {title}
